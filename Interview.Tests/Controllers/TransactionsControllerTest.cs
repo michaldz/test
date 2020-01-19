@@ -12,17 +12,17 @@ using System.Web.Http;
 namespace Interview.Tests.Controllers
 {
     [TestClass]
-    public class PaymentsControllerTest
+    public class TransactionsControllerTest
     {
         [TestMethod]
-        public void GetPayments_ShouldReturnAllPayments()
+        public void GetTransactions_ShouldReturnAllTransactions()
         {
             // Arrange
-            PaymentsController controller = new PaymentsController();
+            TransactionsController controller = new TransactionsController();
 
             // Act
-            IHttpActionResult actionResult = controller.GetPayments();
-            var contentResult = actionResult as OkNegotiatedContentResult<IEnumerable<Payment>>;
+            IHttpActionResult actionResult = controller.();
+            var contentResult = actionResult as OkNegotiatedContentResult<IEnumerable<Transaction>>;
 
             // Assert
             Assert.IsNotNull(contentResult);

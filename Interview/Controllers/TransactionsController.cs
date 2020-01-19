@@ -12,33 +12,33 @@ using System.Web.Http.Description;
 
 namespace Interview.Controllers
 {
-    [RoutePrefix("api/payments")]
-    public class PaymentsController : ApiController
+    [RoutePrefix("api/transactions")]
+    public class TransactionsController : ApiController
     {
-        const string paymentRouteName = "paymentRouteName";
+        const string transactionRouteName = "transactionRouteName";
         const int unprocessableEntityHttpStatusCode = 422;
 
-        private readonly IPaymentService paymentService;
-        public PaymentsController()
+        private readonly ITransactionService transactionService;
+        public TransactionsController()
         {
             //TODO: Add dependency Injection Container
-            paymentService = new PaymentService();
+            transactionService = new TransactionService();
         }
 
         /// <summary>
-        /// Get Payments
+        /// Get Transactions
         /// </summary>
         /// <returns></returns>
         /// <response code="200">OK</response>
         /// <response code="500">Internal Error</response>
-        [ResponseType(typeof(IEnumerable<Payment>))]
+        [ResponseType(typeof(IEnumerable<Transaction>))]
         [Route("")]
         [HttpGet]
-        public IHttpActionResult GetPayments()
+        public IHttpActionResult GetTransactions()
         {
             try
             {
-                return Ok(paymentService.GetPayments());
+                return Ok(transactionService.GetTransactions());
             }
             catch (Exception)
             {
@@ -48,21 +48,21 @@ namespace Interview.Controllers
         }
 
         /// <summary>
-        /// Get payment
+        /// Get Transaction
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         /// <response code="200">OK</response>
         /// <response code="404">Not Found</response>
         /// <response code="500">Internal Error</response>
-        [ResponseType(typeof(Payment))]
-        [Route("{id:Guid}", Name = paymentRouteName)]
+        [ResponseType(typeof(Transaction))]
+        [Route("{id:Guid}", Name = transactionRouteName)]
         [HttpGet]
-        public IHttpActionResult GetPayment(string id)
+        public IHttpActionResult GetTransaction(string id)
         {
             try
             {
-                return Ok(paymentService.GetPayment(id));
+                return Ok(transactionService.GetTransaction(id));
             }
             catch (KeyNotFoundException)
             {
@@ -75,22 +75,22 @@ namespace Interview.Controllers
         }
 
         /// <summary>
-        /// Create new payment
+        /// Create Transaction
         /// </summary>
-        /// <param name="payment"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
         /// <response code="201">Created</response>
         /// <response code="409">Conflict</response>
         /// <response code="500">Internal Error</response>
-        [ResponseType(typeof(Payment))]
+        [ResponseType(typeof(Transaction))]
         [Route("")]
         [HttpPost]
-        public IHttpActionResult Post([FromBody]Payment payment)
+        public IHttpActionResult CreateTransaction([FromBody]Transaction transaction)
         {
             try
             {
-                var newPayment = paymentService.CreatePayment(payment);
-                return CreatedAtRoute<Payment>(paymentRouteName, new { id = newPayment.Id }, newPayment);
+                var newTransaction = transactionService.CreateTransaction(transaction);
+                return CreatedAtRoute<Transaction>(transactionRouteName, new { id = newTransaction.Id }, newTransaction);
             }
             catch (ArgumentException)
             {
@@ -103,24 +103,24 @@ namespace Interview.Controllers
         }
 
         /// <summary>
-        /// Update Payment
+        /// Update Transaction
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="payment"></param>
+        /// <param name="transaction"></param>
         /// <returns></returns>
         /// <response code="200">Updated</response>
         /// <response code="404">Not Found</response>
         /// <response code="422">Unprocessable Entity</response>
         /// <response code="500">Internal Error</response> 
-        [ResponseType(typeof(Payment))]
+        [ResponseType(typeof(Transaction))]
         [Route("{id:Guid}")]
         [HttpPut]
-        public IHttpActionResult Put(string id, [FromBody]Payment payment)
+        public IHttpActionResult UpdateTransaction(string id, [FromBody]Transaction transaction)
         {
             try
             {
-                payment.Id = id;
-                return Ok(paymentService.UpdatePayment(payment));
+                transaction.Id = id;
+                return Ok(transactionService.UpdateTransaction(transaction));
             }
             catch (KeyNotFoundException)
             {
@@ -137,7 +137,7 @@ namespace Interview.Controllers
         }
 
         /// <summary>
-        /// Delete Payment
+        /// Delete Transaction
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -146,11 +146,11 @@ namespace Interview.Controllers
         /// <response code="500">Internal Error</response>
         [Route("{id:Guid}")]
         [HttpDelete]
-        public IHttpActionResult Delete(string id)
+        public IHttpActionResult DeleteTransaction(string id)
         {
             try
             {
-                paymentService.DeletePayment(id);
+                transactionService.DeleteTransaction(id);
                 return StatusCode(HttpStatusCode.NoContent);
             }
             catch (KeyNotFoundException)

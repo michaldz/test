@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Interview.Models
 {
-    public class Payment : IIdable
+    public class Transaction : IIdable
     {
         public string Id { get; set; }
         public int ApplicationId { get; set; }

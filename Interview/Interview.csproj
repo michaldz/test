@@ -129,17 +129,17 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Data\Interfaces\IGenericDataRepository.cs" />
     <Compile Include="Data\JsonFileDataRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\IIdable .cs" />
-    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Interfaces\IPaymentService.cs" />
-    <Compile Include="Services\PaymentService.cs" />
+    <Compile Include="Services\Interfaces\ITransactionService.cs" />
+    <Compile Include="Services\TransactionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\favicon.ico" />
